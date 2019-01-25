@@ -53,3 +53,5 @@ test.*
 # 忽略webstorm自动生成文件
 *.iml
 .idea/
+
+package-lock.json
