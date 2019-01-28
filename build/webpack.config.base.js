@@ -21,27 +21,10 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
-                test: /\.css$/,
-                use: [{
-                    loader: MiniCssExtractPlugin.loader,
-                }, {
-                    loader: "css-loader"
-                }, {
-                    loader: "postcss-loader"
-                }]
-            },
-            {
-                test: /\.scss$/,
-                use: [{
-                    loader: MiniCssExtractPlugin.loader,
-                }, {
-                    loader: "css-loader" // 编译CSS到CommonJS
-                }, {
-                    loader: "postcss-loader" // 编译CSS
-                }, {
-                    loader: "sass-loader" // 编译SCSS到CSS
-                }]
-            },
+                test: /\.jsx$/,
+                loader: "babel-loader?cacheDirectory=true",
+                exclude: /node_modules/
+            }
         ]
     },
     plugins: [
