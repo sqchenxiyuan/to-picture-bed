@@ -29,6 +29,7 @@ let SettingButton = styled.div`
 
 let SettingContainer = styled.div`
     z-index: 5;
+    display: flex;
     position: relative;
     width: 100%;
     background: gray;
@@ -36,11 +37,11 @@ let SettingContainer = styled.div`
         switch (props.transitionStatus){
             case "entering": return "translate(0, 0px)"
             case "entered": return "translate(0, 0px)"
-            case "exiting": return "translate(0, -70px)"
-            case "exited": return "translate(0, -70px)"
+            case "exiting": return "translate(0, -100%)"
+            case "exited": return "translate(0, -100%)"
         }
     }};
-    height: 70px;
+    height: 30px;
     transition: transform 0.3s;
     overflow: hidden;
 `
