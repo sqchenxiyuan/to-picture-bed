@@ -1,5 +1,8 @@
 import React from "react"
 import styled from "styled-components"
+import { connect } from "react-redux"
+import { updateConfig } from "../actions"
+import { globalAgent } from "https";
 
 let InfoContainer = styled.div`
     flex:1;
@@ -11,95 +14,65 @@ let Input = styled.input`
     border: 1px solid white;
 `
 
-const STORAGE_KEY = "TO-PICTURE-BED"
-
 class Setting extends React.Component{
     constructor(props){
         super(props)
-
-        this.state = {
-            AK: "",
-            SK: "",
-            scope: ""
-        }
 
         this.inputAK = this.inputAK.bind(this)
         this.inputSK = this.inputSK.bind(this)
         this.inputScope = this.inputScope.bind(this)
     }
 
-    componentDidMount(){
-        this.loadFromLocalStorage()
-    }
-
     inputAK(e){
         let value = e.target.value
-        this.setState({
+        this.props.updateConfig({
             AK: value
         })
-        this.saveToLocalStorage()
     }
 
     inputSK(e){
         let value = e.target.value
-        this.setState({
+        this.props.updateConfig({
             SK: value
         })
-        this.saveToLocalStorage()
     }
 
     inputScope(e){
         let value = e.target.value
-        this.setState({
+        this.props.updateConfig({
             scope: value
         })
-        this.saveToLocalStorage()
-    }
-
-    loadFromLocalStorage(){
-        let data = localStorage.getItem("STORAGE_KEY")
-        try {
-            data = JSON.parse(data)
-            this.setState({
-                AK: data.AK || "",
-                SK: data.SK || "",
-                scope: data.scope || ""
-            })
-        } catch (e){}
-    }
-
-    saveToLocalStorage(){
-        let state = this.state
-        let data = {
-            AK: state.AK,
-            SK: state.SK,
-            scope: state.scope
-        }
-
-        localStorage.setItem("STORAGE_KEY", JSON.stringify(data))
     }
 
     render(){
         let props = this.props
-        let state = this.state
+        console.log(123)
 
         return (
             <>
                 <InfoContainer>
                     AK:
-                    <Input onChange={this.inputAK} value={state.AK}></Input>
+                    <Input onChange={this.inputAK} value={props.AK}></Input>
                 </InfoContainer>
                 <InfoContainer>
                     SK:
-                    <Input onChange={this.inputSK} value={state.SK}></Input>
+                    <Input onChange={this.inputSK} value={props.SK}></Input>
                 </InfoContainer>
                 <InfoContainer>
                     scope:
-                    <Input onChange={this.inputScope} value={state.scope}></Input>
+                    <Input onChange={this.inputScope} value={props.scope}></Input>
                 </InfoContainer>
             </>
         )
     }
 }
 
-export default Setting
+const mapStateToProps = state => {
+    return {
+        AK: state.globalConfig.AK,
+        SK: state.globalConfig.SK,
+        scope: state.globalConfig.scope
+    }
+}
+
+export default connect(mapStateToProps, { updateConfig })(Setting)
