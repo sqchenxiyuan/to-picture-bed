@@ -6,10 +6,20 @@ import { uploadFiles } from "../actions"
 
 const UploadContainer = styled.div`
     cursor: pointer;
+    position: relative;
     margin: auto;
     height: 300px;
     width: 400px;
     background: gray;
+`
+
+const CenterTextContainer = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
 `
 
 class UploadArea extends React.Component{
@@ -64,6 +74,9 @@ class UploadArea extends React.Component{
             <>
                 <UploadContainer onClick={this.selectFiles} onDrop={this.dragFiles} 
                     onDragEnter={e => e.preventDefault()} onDragOver={e => e.preventDefault()} onDragLeave={e => e.preventDefault()}>
+                    <CenterTextContainer>
+                        点击选择文件或拖拽文件至此处
+                    </CenterTextContainer>
                 </UploadContainer>
             </>
         )

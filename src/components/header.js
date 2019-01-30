@@ -14,7 +14,7 @@ let HeaderContainer = styled.div`
 
 let SettingButton = styled.div`
     cursor: pointer;
-    width: 70px;
+    padding: 0 15px;
     height: 30px;
     position: absolute;
     right: 20px;

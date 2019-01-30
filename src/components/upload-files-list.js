@@ -12,7 +12,6 @@ const UploadFilesList = (prop) => {
                     return <UploadingFileItem key={uploadingFile.key} uploadingFile={uploadingFile}></UploadingFileItem>
                 })
             }
-            <div>123</div>
         </>
     )
 }
