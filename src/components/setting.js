@@ -2,7 +2,6 @@ import React from "react"
 import styled from "styled-components"
 import { connect } from "react-redux"
 import { updateConfig } from "../actions"
-import { globalAgent } from "https";
 
 let InfoContainer = styled.div`
     flex:1;
@@ -46,8 +45,6 @@ class Setting extends React.Component{
 
     render(){
         let props = this.props
-        console.log(123)
-
         return (
             <>
                 <InfoContainer>

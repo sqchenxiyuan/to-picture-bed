@@ -1,6 +1,15 @@
-import { combineReducers } from "redux"
-import globalConfig from "./global-config"
+import { combineReducers, createStore } from "redux"
+import { globalConfig, initConfig as initGlobalConfig } from "./global-config"
+import { uploadFilesData, initData as initUploadFilesData } from "./uploaded-files"
 
-export default combineReducers({
-    globalConfig
+const rootReducer = combineReducers({
+    globalConfig,
+    uploadFilesData
 })
+
+export function createNewStore(){
+    return createStore(rootReducer, {
+        globalConfig: initGlobalConfig(),
+        uploadFilesData: initUploadFilesData()
+    })
+}

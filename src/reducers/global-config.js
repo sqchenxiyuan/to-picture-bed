@@ -43,4 +43,4 @@ const globalConfig = (state = loadFromLocalStorage(), action) => {
     return state
 }
 
-export default globalConfig
+export { globalConfig, initConfig }

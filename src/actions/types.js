@@ -1,1 +1,3 @@
 export const UPDATE_CONFIG = "UPDATE_CONFIG"
+
+export const UPLOAD_FILES = "UPLOAD_FILES"

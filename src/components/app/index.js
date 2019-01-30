@@ -3,12 +3,17 @@ import styled from "styled-components"
 import { createGlobalStyle } from "styled-components"
 
 import Header from "../header"
+import UploadArea from "../upload-area"
 
 const GlobalStyle = createGlobalStyle`
     html, body{
         padding: 0;
         margin: 0
     }
+`
+const ContentContainer = styled.div`
+    margin: auto;
+    width: 1000px;
 `
 
 class App extends React.Component{
@@ -17,6 +22,9 @@ class App extends React.Component{
             <>
                 <GlobalStyle></GlobalStyle>
                 <Header></Header>
+                <ContentContainer>
+                    <UploadArea></UploadArea>
+                </ContentContainer>
             </>
         )
     }
