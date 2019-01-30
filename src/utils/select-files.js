@@ -1,3 +1,5 @@
+import IS_SERVER from "./is-server"
+
 //选取文件函数
 const filesFilter = function(files, accept = "", size){
     files = Array.from(files)
@@ -47,6 +49,8 @@ const filesFilter = function(files, accept = "", size){
 }
 
 const selectFiles = (function(){
+    if (IS_SERVER) return //服务器中
+
     let input = document.createElement("input")
     input.type = "file"
     input.style.opacity = "0"

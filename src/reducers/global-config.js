@@ -1,4 +1,5 @@
 import { UPDATE_CONFIG } from "../actions/types"
+import IS_SERVER from "../utils/is-server"
 
 const STORAGE_KEY = "TO-PICTURE-BED"
 
@@ -13,6 +14,9 @@ function initConfig(){
 
 function loadFromLocalStorage(){
     let init = initConfig()
+    
+    if (IS_SERVER) return init
+
     let data = localStorage.getItem(STORAGE_KEY)
     try {
         data = JSON.parse(data)
@@ -21,10 +25,13 @@ function loadFromLocalStorage(){
         init.scope = data.scope || ""
         init.domain = data.domain || ""
     } catch (e){}
-    return data
+
+    return init
 }
 
 function saveToLocalStorage(config){
+    if (IS_SERVER) return
+
     let data = {
         AK: config.AK,
         SK: config.SK,
@@ -37,6 +44,7 @@ function saveToLocalStorage(config){
 
 
 const globalConfig = (state = loadFromLocalStorage(), action) => {
+    console.log(state)
     switch (action.type){
         case UPDATE_CONFIG:
             let data = Object.assign({}, state, action.newConfig)
@@ -46,4 +54,4 @@ const globalConfig = (state = loadFromLocalStorage(), action) => {
     return state
 }
 
-export { globalConfig, loadFromLocalStorage as initConfig }
+export { globalConfig, initConfig, loadFromLocalStorage}

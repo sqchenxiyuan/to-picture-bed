@@ -1,4 +1,5 @@
 const webpackBaseConfig = require("./webpack.config.base.js")
+const HtmlWebpackPlugin = require("html-webpack-plugin")
 const webpack = require("webpack")
 const merge = require("webpack-merge")
 
@@ -10,7 +11,16 @@ module.exports = merge(webpackBaseConfig, {
         chunkFilename: "[name].chunk.js",
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new HtmlWebpackPlugin({
+            name: "index",
+            filename: "index.html",
+            template: "./index.template.html",
+            inject: true,
+            title: "To Picture Bed",
+            stylestr: "",
+            htmlstr: ""
+        }),
     ],
     devServer: {
         historyApiFallback: {
