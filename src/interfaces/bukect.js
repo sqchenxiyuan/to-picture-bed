@@ -1,3 +1,5 @@
+import axios from "axios"
+
 import {
     getAccessToken,
     getUploadToken
@@ -19,7 +21,8 @@ export async function uploadFile(uploadPolicy, file, config){
     let {
         ak,
         sk,
-        key
+        key,
+        onUploadProgress = e => { console.log(e) }
     } = config
 
     let uploadToken = getUploadToken(uploadPolicy, ak, sk)
@@ -32,8 +35,7 @@ export async function uploadFile(uploadPolicy, file, config){
     let bucket = uploadPolicy.scope
     let host = await getBucketUploadHost(ak, bucket)
 
-    return fetch(`http://${host}`, {
-        method: "POST",
-        body: formData
+    return axios.post(`http://${host}`, formData, {
+        onUploadProgress
     })
 }

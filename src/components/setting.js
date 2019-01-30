@@ -20,6 +20,7 @@ class Setting extends React.Component{
         this.inputAK = this.inputAK.bind(this)
         this.inputSK = this.inputSK.bind(this)
         this.inputScope = this.inputScope.bind(this)
+        this.inputDomain = this.inputDomain.bind(this)
     }
 
     inputAK(e){
@@ -43,6 +44,13 @@ class Setting extends React.Component{
         })
     }
 
+    inputDomain(e){
+        let value = e.target.value
+        this.props.updateConfig({
+            domain: value
+        })
+    }
+
     render(){
         let props = this.props
         return (
@@ -59,6 +67,10 @@ class Setting extends React.Component{
                     scope:
                     <Input onChange={this.inputScope} value={props.scope}></Input>
                 </InfoContainer>
+                <InfoContainer>
+                    domain:
+                    <Input onChange={this.inputDomain} value={props.domain}></Input>
+                </InfoContainer>
             </>
         )
     }
@@ -68,7 +80,8 @@ const mapStateToProps = state => {
     return {
         AK: state.globalConfig.AK,
         SK: state.globalConfig.SK,
-        scope: state.globalConfig.scope
+        scope: state.globalConfig.scope,
+        domain: state.globalConfig.domain
     }
 }
 

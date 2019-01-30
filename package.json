@@ -8,6 +8,8 @@
         "build": "cross-env NODE_ENV=production webpack --inline --progress --config build/webpack.config.prod.js"
     },
     "dependencies": {
+        "uuid": "3.3.2",
+        "mime": "2.4.0",
         "react": "16.7.0",
         "react-dom": "16.7.0",
         "react-transition-group": "2.5.3",

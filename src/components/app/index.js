@@ -4,6 +4,7 @@ import { createGlobalStyle } from "styled-components"
 
 import Header from "../header"
 import UploadArea from "../upload-area"
+import UploadFilesList from "../upload-files-list"
 
 const GlobalStyle = createGlobalStyle`
     html, body{
@@ -24,6 +25,7 @@ class App extends React.Component{
                 <Header></Header>
                 <ContentContainer>
                     <UploadArea></UploadArea>
+                    <UploadFilesList></UploadFilesList>
                 </ContentContainer>
             </>
         )

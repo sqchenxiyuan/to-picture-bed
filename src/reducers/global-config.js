@@ -6,7 +6,8 @@ function initConfig(){
     return {
         AK: "",
         SK: "",
-        scope: ""
+        scope: "",
+        domain: ""
     }
 }
 
@@ -18,6 +19,7 @@ function loadFromLocalStorage(){
         init.AK = data.AK || ""
         init.SK = data.SK || ""
         init.scope = data.scope || ""
+        init.domain = data.domain || ""
     } catch (e){}
     return data
 }
@@ -26,7 +28,8 @@ function saveToLocalStorage(config){
     let data = {
         AK: config.AK,
         SK: config.SK,
-        scope: config.scope
+        scope: config.scope,
+        domain: config.domain
     }
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
@@ -43,4 +46,4 @@ const globalConfig = (state = loadFromLocalStorage(), action) => {
     return state
 }
 
-export { globalConfig, initConfig }
+export { globalConfig, loadFromLocalStorage as initConfig }
