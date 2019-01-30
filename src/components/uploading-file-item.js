@@ -77,9 +77,41 @@ class UploadingFileItem extends React.Component{
         })
     }
 
-    render(){
+    getImageURL(){
         let props = this.props
+
+        let url = ""
+        if (/^https?:\/\//.test(props.domain)){
+            url = props.domain
+        } else {
+            url = `http://${props.domain}/`
+        }
+        
+        if (!/\/$/.test(url)){
+            url = url + "/"
+        }
+
+        return `${url}${props.uploadingFile.key}`
+    }
+
+
+    render(){
         let state = this.state
+
+        let toCopy = type => {
+            let listener = e => {
+                if (type === "url"){
+                    e.clipboardData.setData("text/plain", this.getImageURL())
+                } else if (type === "md"){
+                    e.clipboardData.setData("text/plain", `![](${this.getImageURL()})`)
+                }
+                e.preventDefault()
+            }
+
+            document.addEventListener("copy", listener)
+            document.execCommand("copy")
+            document.removeEventListener("copy", listener)
+        }
 
         return (
             <div>
@@ -90,7 +122,11 @@ class UploadingFileItem extends React.Component{
                 </ImageContainer>
                 <Progress progress={state.porgress}>
                     {
-                        state.porgress === 1 && <div>success: {props.domain}/{props.uploadingFile.key}</div>
+                        state.porgress === 1 &&
+                            <div>success: {this.getImageURL()}
+                                <button onClick={e => toCopy("url")}>复制</button>
+                                <button onClick={e => toCopy("md")}>复制MD</button>
+                            </div>
                     }
                 </Progress>
             </div>
