@@ -9,8 +9,8 @@ const UploadContainer = styled.div`
     position: relative;
     margin: auto;
     height: 300px;
-    width: 400px;
-    background: gray;
+    width: 100%;
+    border: 1px dashed black;
 `
 
 const CenterTextContainer = styled.div`

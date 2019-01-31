@@ -14,7 +14,8 @@ const GlobalStyle = createGlobalStyle`
 `
 const ContentContainer = styled.div`
     margin: auto;
-    width: 1000px;
+    width: 100%;
+    max-width: 600px;
 `
 
 class App extends React.Component{

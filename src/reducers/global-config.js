@@ -44,7 +44,6 @@ function saveToLocalStorage(config){
 
 
 const globalConfig = (state = loadFromLocalStorage(), action) => {
-    console.log(state)
     switch (action.type){
         case UPDATE_CONFIG:
             let data = Object.assign({}, state, action.newConfig)

@@ -4,21 +4,37 @@ import { connect } from "react-redux"
 
 import { getBucketUploadHost, uploadFile } from "../interfaces/bukect"
 
+const UploadContainer = styled.div`
+    margin: 20px 0;
+    border: 1px dashed black;
+`
+
 const ImageContainer = styled.div`
+    position: relative;
     width:100%;
     text-align: center;
+    overflow: hidden;
 
     img{
         width: 100%;
-        max-width: 400px;
     }
 `
 
 const Progress = styled.div`
+    display: flex;
     width:${props => props.progress * 100 + "%"};
-    background: red;
+    background: ${props => { return props.progress === 1 ? "gray" : "black" }};
     height: ${props => { return props.progress === 1 ? "40px" : "20px" }};
-    transition: width .3s ease-out, height .3s ease-out;
+    line-height: 40px;
+    transition: width .3s ease-out, height .3s ease-out, background .3s ease-out;
+`
+
+const ResultInput = styled.input`
+    flex:1;
+`
+
+const ResultButton = styled.button`
+    padding: 0 15px;
 `
 
 
@@ -114,7 +130,7 @@ class UploadingFileItem extends React.Component{
         }
 
         return (
-            <div>
+            <UploadContainer>
                 <ImageContainer>
                     {
                         state.imageData && <img src={state.imageData} />
@@ -123,13 +139,14 @@ class UploadingFileItem extends React.Component{
                 <Progress progress={state.porgress}>
                     {
                         state.porgress === 1 &&
-                            <div>success: {this.getImageURL()}
-                                <button onClick={e => toCopy("url")}>复制</button>
-                                <button onClick={e => toCopy("md")}>复制MD</button>
-                            </div>
+                            <>
+                                <ResultInput value={this.getImageURL()} />
+                                <ResultButton onClick={e => toCopy("url")}>复制</ResultButton>
+                                <ResultButton onClick={e => toCopy("md")}>复制MD</ResultButton>
+                            </>
                     }
                 </Progress>
-            </div>
+            </UploadContainer>
         )
     }
 }
