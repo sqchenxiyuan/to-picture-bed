@@ -35,7 +35,7 @@ export async function uploadFile(uploadPolicy, file, config){
     let bucket = uploadPolicy.scope
     let host = await getBucketUploadHost(ak, bucket)
 
-    return axios.post(`http://${host}`, formData, {
+    return axios.post(`https://${host}`, formData, {
         onUploadProgress
     })
 }
