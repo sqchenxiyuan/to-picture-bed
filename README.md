@@ -4,6 +4,11 @@
 
 线上地址： [https://pbed.chenxiyuan.fun/](https://pbed.chenxiyuan.fun/)
 
+## 下个版本计划
+
+- [ ] 对未设置参数进行提醒
+- [ ] 本地缓存上传地址
+
 ## 开发
 
 npm install
