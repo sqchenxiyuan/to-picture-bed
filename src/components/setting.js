@@ -16,35 +16,30 @@ let Input = styled.input`
 class Setting extends React.Component{
     constructor(props){
         super(props)
-
-        this.inputAK = this.inputAK.bind(this)
-        this.inputSK = this.inputSK.bind(this)
-        this.inputScope = this.inputScope.bind(this)
-        this.inputDomain = this.inputDomain.bind(this)
     }
 
-    inputAK(e){
+    inputAK = e => {
         let value = e.target.value
         this.props.updateConfig({
             AK: value
         })
     }
 
-    inputSK(e){
+    inputSK = e => {
         let value = e.target.value
         this.props.updateConfig({
             SK: value
         })
     }
 
-    inputScope(e){
+    inputScope = e => {
         let value = e.target.value
         this.props.updateConfig({
             scope: value
         })
     }
 
-    inputDomain(e){
+    inputDomain = e => {
         let value = e.target.value
         this.props.updateConfig({
             domain: value
@@ -57,19 +52,19 @@ class Setting extends React.Component{
             <>
                 <InfoContainer>
                     AK:
-                    <Input onChange={this.inputAK} value={props.AK}></Input>
+                    <Input onChange={this.inputAK} onPaste={e => e.stopPropagation()} value={props.AK}></Input>
                 </InfoContainer>
                 <InfoContainer>
                     SK:
-                    <Input onChange={this.inputSK} value={props.SK}></Input>
+                    <Input onChange={this.inputSK} onPaste={e => e.stopPropagation()} value={props.SK}></Input>
                 </InfoContainer>
                 <InfoContainer>
                     scope:
-                    <Input onChange={this.inputScope} value={props.scope}></Input>
+                    <Input onChange={this.inputScope} onPaste={e => e.stopPropagation()} value={props.scope}></Input>
                 </InfoContainer>
                 <InfoContainer>
                     domain:
-                    <Input onChange={this.inputDomain} value={props.domain}></Input>
+                    <Input onChange={this.inputDomain} onPaste={e => e.stopPropagation()} value={props.domain}></Input>
                 </InfoContainer>
             </>
         )

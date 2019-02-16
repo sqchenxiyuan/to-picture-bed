@@ -25,10 +25,6 @@ const CenterTextContainer = styled.div`
 class UploadArea extends React.Component{
     constructor(props){
         super(props)
-
-        this.selectFiles = this.selectFiles.bind(this)
-        this.dragFiles = this.dragFiles.bind(this)
-        this.pasteFiles = this.pasteFiles.bind(this)
     }
 
     componentDidMount(){
@@ -39,9 +35,41 @@ class UploadArea extends React.Component{
         window.removeEventListener("paste", this.pasteFiles)
     }
 
-    selectFiles() {
-        selectFiles("image/*").then(files => {
+    uploadFiles = files => {
+        //检测配置是否正确
+        if (this.checkUploadConfigs()){
             this.props.uploadFiles(files)
+        }
+    }
+
+    checkUploadConfigs = () => {
+        let globalConfig = this.props.globalConfig
+        if (!globalConfig.AK){
+            alert("请输入AK")
+            return false
+        }
+
+        if (!globalConfig.SK){
+            alert("请输入SK")
+            return false
+        }
+
+        if (!globalConfig.scope){
+            alert("请输入上传的空间(scope)")
+            return false
+        }
+
+        if (!globalConfig.domain){
+            alert("请输入上传后URL的域名")
+            return false
+        }
+
+        return true
+    }
+
+    selectFiles = () => {
+        selectFiles("image/*").then(files => {
+            this.uploadFiles(files)
         }).catch(err => {
             switch (err.message){
                 case "ERROR_FILE_TYPE":
@@ -54,22 +82,19 @@ class UploadArea extends React.Component{
         })
     }
 
-    dragFiles(e){
+    dragFiles = e => {
         e.preventDefault()
         let files = filesFilter(e.dataTransfer.files, "image/*")
-        this.props.uploadFiles(files)
+        this.uploadFiles(files)
     }
 
-    pasteFiles(e){
+    pasteFiles = e => {
         //Windows下 从系统复制的文件无法获取 QQ截图可以获取
         let files = filesFilter(e.clipboardData.files, "image/*")
-        this.props.uploadFiles(files)
+        this.uploadFiles(files)
     }
 
     render(){
-        let props = this.props
-        let state = this.state
-
         return (
             <>
                 <UploadContainer onClick={this.selectFiles} onDrop={this.dragFiles} 
@@ -83,4 +108,10 @@ class UploadArea extends React.Component{
     }
 }
 
-export default connect(_ => ({}), {uploadFiles})(UploadArea)
+const mapStateToProps = state => {
+    return {
+        globalConfig: state.globalConfig,
+    }
+}
+
+export default connect(mapStateToProps, {uploadFiles})(UploadArea)
