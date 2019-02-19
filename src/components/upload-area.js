@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { selectFiles, filesFilter } from "../utils/select-files"
+import { selectFiles } from "../utils/select-files"
 import { connect } from "react-redux"
 import { uploadFiles } from "../actions"
 
@@ -27,19 +27,15 @@ class UploadArea extends React.Component{
         super(props)
     }
 
-    componentDidMount(){
-        window.addEventListener("paste", this.pasteFiles)
-    }
-
-    componentWillUnmount(){
-        window.removeEventListener("paste", this.pasteFiles)
-    }
-
     uploadFiles = files => {
         //检测配置是否正确
         if (this.checkUploadConfigs()){
             this.props.uploadFiles(files)
         }
+    }
+
+    preventDefault = e => {
+        e.preventDefault()
     }
 
     checkUploadConfigs = () => {
@@ -82,23 +78,10 @@ class UploadArea extends React.Component{
         })
     }
 
-    dragFiles = e => {
-        e.preventDefault()
-        let files = filesFilter(e.dataTransfer.files, "image/*")
-        this.uploadFiles(files)
-    }
-
-    pasteFiles = e => {
-        //Windows下 从系统复制的文件无法获取 QQ截图可以获取
-        let files = filesFilter(e.clipboardData.files, "image/*")
-        this.uploadFiles(files)
-    }
-
     render(){
         return (
             <>
-                <UploadContainer onClick={this.selectFiles} onDrop={this.dragFiles} 
-                    onDragEnter={e => e.preventDefault()} onDragOver={e => e.preventDefault()} onDragLeave={e => e.preventDefault()}>
+                <UploadContainer onClick={this.selectFiles}>
                     <CenterTextContainer>
                         点击选择文件或拖拽文件至此处
                     </CenterTextContainer>
