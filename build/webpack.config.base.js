@@ -1,5 +1,6 @@
 const path = require("path")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const webpack = require("webpack")
 
 module.exports = {
     context: path.resolve(__dirname, "../"),
@@ -27,6 +28,9 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.DefinePlugin({
+            "process.env.NODE_ENV": JSON.stringify("production")
+        }),
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
