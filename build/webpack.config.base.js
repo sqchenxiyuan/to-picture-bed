@@ -24,7 +24,20 @@ module.exports = {
                 test: /\.jsx$/,
                 loader: "babel-loader?cacheDirectory=true",
                 exclude: /node_modules/
-            }
+            },
+            {
+                test: /\.css$/,
+                use: [{
+                    loader: "style-loader" // creates style nodes from JS strings
+                }, {
+                    loader: "css-loader", // translates CSS into CommonJS
+                    options: {
+                        modules: true
+                    }
+                }, {
+                    loader: "postcss-loader", // translates CSS into CommonJS
+                }]
+            },
         ]
     },
     plugins: [

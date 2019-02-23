@@ -1,12 +1,12 @@
 import React from "react"
 import styled from "styled-components"
 import { createGlobalStyle } from "styled-components"
-import { Transition } from "react-transition-group"
 
 import Header from "../header"
 import UploadArea from "../upload-area"
 import UploadFilesList from "../upload-files-list"
 import { filesFilter } from "../../utils/select-files"
+import FadeTransition from "../transitions/fade-transtion"
 
 import { connect } from "react-redux"
 import { uploadFiles } from "../../actions"
@@ -32,14 +32,6 @@ const DragingMask = styled.div`
     height: 100%;
     color: white;
     background: rgba(0,0,0,0.7);
-    opacity: ${props => {
-        switch (props.transitionStatus){
-            case "entering": return "1"
-            case "entered": return "1"
-            case "exiting": return "0"
-            case "exited": return "0"
-        }
-    }};
     transition: opacity .3s;
 
     span{
@@ -141,7 +133,7 @@ class App extends React.Component{
                     <UploadArea></UploadArea>
                     <UploadFilesList></UploadFilesList>
                 </ContentContainer>
-                <Transition in={state.draging} timeout={300}>
+                <FadeTransition in={state.draging} mountOnEnter unmountOnExit timeout={300}>
                     {
                         state => 
                             <DragingMask transitionStatus={state} onDragLeave={this.dragFileLeave}>
@@ -150,7 +142,7 @@ class App extends React.Component{
                                 </span>
                             </DragingMask> 
                     }
-                </Transition>
+                </FadeTransition>
             </>
         )
     }
