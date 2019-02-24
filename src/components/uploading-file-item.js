@@ -66,11 +66,12 @@ class UploadingFileItem extends React.Component{
         this.uploadFile()
     }
 
-    uploadFile(){
+    async uploadFile(){
         let uploadingFile = this.props.uploadingFile
         let AK = this.props.AK
         let SK = this.props.SK
         let scope = this.props.scope
+        let uploadHost = await getBucketUploadHost(AK, scope)
 
         uploadFile({
             scope: scope,
@@ -79,6 +80,7 @@ class UploadingFileItem extends React.Component{
             ak: AK,
             sk: SK,
             key: uploadingFile.key,
+            host: uploadHost,
             onUploadProgress: this.imageUploadProgress
         }).then(res => {
             console.log(res)
