@@ -1,6 +1,6 @@
 {
     "name": "to-picture-bed",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "极简图床最近挂了，想想还是自己弄一个做备份",
     "scripts": {
         "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --config build/webpack.config.dev.js",
