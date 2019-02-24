@@ -1,6 +1,11 @@
 import React from "react"
-import styles from "./index.css"
 import { CSSTransition } from "react-transition-group"
+import IS_SERVER from "../../../utils/is-server"
+
+let styles = {}
+if (!IS_SERVER){
+    styles = require("./index.css")
+}
 
 const CLASSNAMES = {
     enter: styles["transition-fade-enter"],
@@ -12,10 +17,8 @@ const CLASSNAMES = {
 }
 
 function FadeTransition(props){
-    props.classNames = props.classNames || CLASSNAMES
-
     return (
-        <CSSTransition {...props}></CSSTransition>
+        <CSSTransition {...props} classNames={CLASSNAMES}></CSSTransition>
     )
 }
 
