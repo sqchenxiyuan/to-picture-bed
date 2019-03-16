@@ -2,7 +2,7 @@ import axios from "axios"
 
 import {
     getUploadToken
-} from "../utils/getToken"
+} from "../utils/get-token"
 
 export function getBucketInfo(ak, bucket){
     return fetch(`https://uc.qbox.me/v2/query?ak=${ak}&bucket=${bucket}`)
